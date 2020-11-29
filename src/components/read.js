@@ -5,6 +5,13 @@ import axios from 'axios';
 //Class extends from react
 export class Read extends React.Component {
     
+
+    constructor(){
+        super();
+
+        this.ReloadData = this.ReloadData.bind(this);
+    }
+
     //used to store data in relevant component
     state = {
         movies: []
@@ -27,9 +34,29 @@ export class Read extends React.Component {
                 (error) => {
                     console.log(error)
                 });
+            }
 
+        //reloads and searches for information
+        ReloadData(){
+            axios.get('http://localhost:4000/api/movies')
 
-    }
+            //allows the fullfilled state methord when everything works
+            .then(
+                //function methord
+                (response) => {
+                    this.setState({ movies: response.data})
+                })
+
+                .catch(
+                    //function methord
+                    (error) => {
+                        console.log(error)
+                    });
+                
+
+        }
+        
+     
     //render used to run the function
     render() {
         //the return will return and display the command
@@ -37,7 +64,7 @@ export class Read extends React.Component {
             //passing different components
             <div>
                 <h1>This is my read Component.</h1>
-                <Movies movies={this.state.movies}></Movies>
+                <Movies movies={this.state.movies} ReloadData={this.ReloadData}></Movies>
             </div>
 
         );

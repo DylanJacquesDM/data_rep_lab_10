@@ -45,23 +45,23 @@ app.get('/', (req, res) => {
 
 app.get('/api/movies', (req, res)=>{
 
-  // const mymovies = [{
+   const mymovies = [{
     
     
-  //   "Title":"Avengers: Infinity War",
-  //   "Year":"2018",
-  //   "imdbID":"tt4154756",
-  //   "Type":"movie",
-  //   "Poster":"https://m.media-amazon.com/images/M/MV5BMjMxNjY2MDU1OV5BMl5BanBnXkFtZTgwNzY1MTUwNTM@._V1_SX300.jpg"
-  //   },
-  //   {
-  //   "Title":"Captain America: Civil War",
-  //   "Year":"2016",
-  //   "imdbID":"tt3498820",
-  //   "Type":"movie",
-  //   "Poster":"https://m.media-amazon.com/images/M/MV5BMjQ0MTgyNjAxMV5BMl5BanBnXkFtZTgwNjUzMDkyODE@._V1_SX300.jpg"
-  //   },
-  //   ];
+    "Title":"Avengers: Infinity War",
+     "Year":"2018",
+     "imdbID":"tt4154756",
+     "Type":"movie",
+  "Poster":"https://m.media-amazon.com/images/M/MV5BMjMxNjY2MDU1OV5BMl5BanBnXkFtZTgwNzY1MTUwNTM@._V1_SX300.jpg"
+     },
+     {
+     "Title":"Captain America: Civil War",
+     "Year":"2016",
+     "imdbID":"tt3498820",
+     "Type":"movie",
+     "Poster":"https://m.media-amazon.com/images/M/MV5BMjQ0MTgyNjAxMV5BMl5BanBnXkFtZTgwNjUzMDkyODE@._V1_SX300.jpg"
+   },
+     ];
 
    
    // helps to finds all documents,records or data in the database and send them back
@@ -77,7 +77,7 @@ app.get('/api/movies', (req, res)=>{
  })
 //when the conditions are met this function will used
 //allows the use of body purser
-app.get('/api/mpvies/:id',(req,res)=>{
+app.get('/api/movies/:id',(req,res)=>{
   console.log(req.params.id);
  // this find request will listen and return any movie or data with the same id
   MovieModel.findById(req.params.id, (err, data)=>{
@@ -85,6 +85,18 @@ app.get('/api/mpvies/:id',(req,res)=>{
   })
 
 })
+
+//delete method from http request
+app.delete('/api/movies/:id',(req,res)=>{
+  console.log("Delete Movie; "+req.params.id);
+
+  //locates the record in the DB + returns data 
+  MovieModel.findByIdAndDelete(req.params.id,(err, data)=>{
+      res.send(data);
+  })
+})
+
+
 
 app.post('/api/movies',(req, res )=>{
   
